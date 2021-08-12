@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: modern-ui
+  annotations:
+    image.openshift.io/triggers: >-
+      [{"from":{"kind":"ImageStreamTag","name":"modern-ui:prod"},"fieldPath":"spec.template.spec.containers[?(@.name==\"modern-ui\")].image"}]
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: modern-ui
+  template:
+    metadata:
+      labels:
+        app: modern-ui
+    spec:
+      containers:
+        - name: modern-ui
+          image: modern-ui:prod
+          ports:
+            - containerPort: 8080

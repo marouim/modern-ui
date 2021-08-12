@@ -1,0 +1,27 @@
+apiVersion: tekton.dev/v1alpha1
+kind: PipelineRun
+metadata:
+  generateName: ui-
+  name: ui
+spec:
+  params:
+    - name: git-url
+      value: 'https://gitlab.com/marouim/simpleproject-ui.git'
+    - name: git-revision
+      value: master
+    - name: internal_image_dest_url
+      value: 'image-registry.openshift-image-registry.svc:5000/ui/ui'
+    - name: app-name
+      value: ui
+  pipelineRef:
+    name: ui
+  resources:
+    - name: source
+      resourceRef:
+        name: simpleproject-ui-git-resource
+  serviceAccountName: pipeline
+  timeout: 1h0m0s
+  workspaces:
+    - name: app-binary
+      persistentVolumeClaim:
+        claimName: ui-build-workspace

@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: modern-ui
+  labels:
+    name: modern-ui
+spec:
+  ports:
+    - port: 8080
+      name: nginx
+  selector:
+    app: modern-ui

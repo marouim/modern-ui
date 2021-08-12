@@ -1,0 +1,75 @@
+apiVersion: tekton.dev/v1beta1
+kind: Pipeline
+metadata:
+  name: modern-ui
+spec:
+  params:
+    - name: app-name
+      type: string
+      description: Application name
+      default: modern-ui
+    - name: git-url
+      type: string
+    - name: git-revision
+      type: string
+
+  tasks:
+
+    - name: fetch-repository
+      taskRef:
+        name: git-clone
+        kind: ClusterTask
+      workspaces:
+        - name: output
+          workspace: output
+      params:
+        - name: url
+          value: $(params.git-url)
+        - name: subdirectory
+          value: ""
+        - name: deleteExisting
+          value: "true"
+        - name: revision
+          value: $(params.git-revision)
+
+    - name: npm-build
+      runAfter:
+        - fetch-repository
+      taskRef:
+        kind: Task
+        name: npm
+      workspaces:
+        - name: output
+          workspace: output
+
+    - name: build-image
+      runAfter:
+        - npm-build
+      taskRef:
+        name: openshift-client
+        kind: Task
+      workspaces:
+        - name: output
+          workspace: output
+      params:
+        - name: commands
+          value: |
+              ls $(workspaces.output.path)
+              oc start-build $(params.app-name) --from-dir=$(workspaces.output.path) --wait=true
+
+    - name: promote-image
+      runAfter:
+        - build-image
+      taskRef:
+        name: openshift-client
+        kind: Task
+      workspaces:
+        - name: output
+          workspace: output
+      params:
+        - name: commands
+          value: |
+              oc tag $(params.app-name):latest $(params.app-name):prod
+
+  workspaces:
+    - name: output

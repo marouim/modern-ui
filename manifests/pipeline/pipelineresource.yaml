@@ -1,0 +1,11 @@
+apiVersion: tekton.dev/v1alpha1
+kind: PipelineResource
+metadata:
+  name: modern-ui-git-resource
+spec:
+  params:
+    - name: revision
+      value: master
+    - name: url
+      value: 'https://github.com/marouim/modern-ui.git'
+  type: git

@@ -1,0 +1,16 @@
+kind: Route
+apiVersion: route.openshift.io/v1
+metadata:
+  name: modern-ui
+  labels:
+    name: modern-ui
+spec:
+  to:
+    kind: Service
+    name: modern-ui
+    weight: 100
+  port:
+    targetPort: 8080
+  tls:
+    termination: edge
+  wildcardPolicy: None

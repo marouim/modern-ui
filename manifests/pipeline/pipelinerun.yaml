@@ -1,7 +1,7 @@
 apiVersion: tekton.dev/v1beta1
 kind: PipelineRun
 metadata:
-  generateName: modern-ui-
+  name: modern-ui-run
   labels:
     app.kubernetes.io/part-of: modern-ui
     tekton.dev/pipeline: modern-ui

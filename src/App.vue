@@ -6,12 +6,9 @@
     >
       <v-list-item>
         <v-list-item-content>
-          <v-list-item-title class="text-h6">
-            Application
+          <v-list-item-title >
+            Applications
           </v-list-item-title>
-          <v-list-item-subtitle>
-            subtext
-          </v-list-item-subtitle>
         </v-list-item-content>
       </v-list-item>
 
@@ -22,32 +19,28 @@
         nav
       >
         <v-list-item
-          v-for="item in items"
-          :key="item.title"
           link
         >
           <v-list-item-icon>
-            <v-icon>{{ item.icon }}</v-icon>
+            <v-icon>mdi-view-dashboard</v-icon>
           </v-list-item-icon>
 
           <v-list-item-content>
-            <v-list-item-title>{{ item.title }}</v-list-item-title>
+            <v-list-item-title >Integrations</v-list-item-title>
           </v-list-item-content>
         </v-list-item>
       </v-list>
 
-
-
     </v-navigation-drawer>
 
-    <v-app-bar app>
+    <v-app-bar app dark flat>
       <v-app-bar-nav-icon @click="drawer = !drawer"></v-app-bar-nav-icon>
 
-      <v-toolbar-title>Application</v-toolbar-title>
+      <v-toolbar-title>{{ $route.meta.displayName }}</v-toolbar-title>
     </v-app-bar>
 
     <v-main>
-      <!--  -->
+      <router-view></router-view>
     </v-main>
   </v-app>
 </template>

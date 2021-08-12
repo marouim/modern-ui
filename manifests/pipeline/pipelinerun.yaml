@@ -19,5 +19,11 @@ spec:
   timeout: 1h0m0s
   workspaces:
     - name: output
-      persistentVolumeClaim:
-        claimName: modern-ui-build-workspace
+      volumeClaimTemplate:
+        spec:
+          accessModes:
+            - ReadWriteOnce
+          resources:
+            requests:
+              storage: 5Gi
+          volumeMode: Filesystem

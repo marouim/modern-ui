@@ -7,7 +7,7 @@ module.exports = {
     proxy: {
       "/api": {
         target:
-          "https://win2019-vs-dotnet-iis-integrations-virt.apps.openshift.rhcasalab.com",
+          "https://modern-ui.apps.openshift.rhcasalab.com",
         logLevel: "debug",
         changeOrigin: true,
         secure: false,

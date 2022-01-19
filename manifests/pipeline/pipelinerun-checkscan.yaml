@@ -1,0 +1,29 @@
+apiVersion: tekton.dev/v1beta1
+kind: PipelineRun
+metadata:
+  name: modern-ui-run-check-scan
+  labels:
+    app.kubernetes.io/part-of: modern-ui-check-scan
+    tekton.dev/pipeline: modern-ui-check-scan
+spec:
+  params:
+    - name: app-name
+      value: modern-ui
+    - name: git-url
+      value: 'https://github.com/marouim/modern-ui.git'
+    - name: git-revision
+      value: master
+  pipelineRef:
+    name: modern-ui-check-scan
+  serviceAccountName: pipeline
+  timeout: 1h0m0s
+  workspaces:
+    - name: output
+      volumeClaimTemplate:
+        spec:
+          accessModes:
+            - ReadWriteOnce
+          resources:
+            requests:
+              storage: 5Gi
+          volumeMode: Filesystem

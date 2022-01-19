@@ -5,7 +5,6 @@ metadata:
   labels:
     name: modern-ui
 spec:
-  host: modern-ui.apps.openshift.rhcasalab.com
   path: /
   to:
     kind: Service

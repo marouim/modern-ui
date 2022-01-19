@@ -117,12 +117,12 @@ export default {
   mounted() {
     this.getIntegrationsMessages();
 
-    this.interval = setInterval(() => {this.getIntegrationsMessages()}, 2000)
+    // this.interval = setInterval(() => {this.getIntegrationsMessages()}, 2000)
 
   },
 
   beforeDestroy() {
-    clearInterval(this.interval)
+    // clearInterval(this.interval)
   },
 
   methods: {

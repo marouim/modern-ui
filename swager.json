@@ -1,0 +1,52 @@
+swagger: "2.0"
+info:
+  description: "API facile"
+  version: "1.0.0"
+  title: "Swagger facile"
+  contact:
+    email: "mouimet@redhat.com"
+basePath: "/api"
+paths:
+  /sendmessage:
+    post:
+      summary: "Ajoute un message dans la base de données"
+      description: ""
+      operationId: "addMessage"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: ""
+        required: true
+        schema:
+          $ref: "#/definitions/Message"
+      responses:
+        "405":
+          description: "Invalid input"
+
+    get:
+      summary: "Liste des messages"
+      description: ""
+      operationId: "listMessages"
+      produces:
+      - "application/json"
+      responses:
+        "200":
+          description: "successful operation"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Message"
+        "400":
+          description: "Invalid status value"
+
+definitions:
+  Message:
+    type: "object"
+    properties:
+      message:
+        type: "string"
+        example: "doggie"

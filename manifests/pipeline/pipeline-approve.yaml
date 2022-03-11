@@ -1,7 +1,7 @@
 apiVersion: tekton.dev/v1beta1
 kind: Pipeline
 metadata:
-  name: modern-ui
+  name: modern-ui-approve
 spec:
   params:
     - name: app-name
